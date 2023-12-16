@@ -2,6 +2,7 @@ package dev.otthon.projectmanagementsystem.controller;
 
 import ch.qos.logback.core.net.server.Client;
 import dev.otthon.projectmanagementsystem.entities.Cliente;
+import dev.otthon.projectmanagementsystem.entities.UF;
 import dev.otthon.projectmanagementsystem.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,17 +33,19 @@ public class ClienteController {
         return modelAndView;
     }
 
-    @GetMapping("/{id}/editar")
-    public ModelAndView editar(@PathVariable Long id) {
-        ModelAndView modelAndView = new ModelAndView("cliente/formulario");
-        modelAndView.addObject("cliente", clienteRepository.getOne(id));
-        return modelAndView;
-    }
-
     @GetMapping("/cadastrar")
     public ModelAndView cadastrar() {
         ModelAndView modelAndView = new ModelAndView("/cliente/formulario");
         modelAndView.addObject("cliente", new Cliente());
+        modelAndView.addObject("ufs", UF.values());
+        return modelAndView;
+    }
+
+    @GetMapping("/{id}/editar")
+    public ModelAndView editar(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView("cliente/formulario");
+        modelAndView.addObject("cliente", clienteRepository.getOne(id));
+        modelAndView.addObject("ufs", UF.values());
         return modelAndView;
     }
 
