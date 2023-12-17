@@ -20,4 +20,29 @@ public class Funcionario extends Pessoa {
     @JoinColumn(name = "endereco_id_fk", nullable = false)
     private Endereco endereco;
 
+    public LocalDate getDataAdmissao() {
+        return dataAdmissao;
+    }
+
+    public void setDataAdmissao(LocalDate dataAdmissao) {
+        this.dataAdmissao = dataAdmissao;
+    }
+
+    public LocalDate getDataDemissao() {
+        return dataDemissao;
+    }
+
+    public void setDataDemissao(LocalDate dataDemissao) {
+        this.dataDemissao = dataDemissao;
+    }
+
+    @Override
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    @Override
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
 }
