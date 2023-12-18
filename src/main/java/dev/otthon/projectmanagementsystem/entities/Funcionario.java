@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Funcionario extends Pessoa {
@@ -23,6 +24,9 @@ public class Funcionario extends Pessoa {
     @ManyToOne
     @JoinColumn(name = "cargo_id_fk", nullable = false)
     private Cargo cargo;
+
+    @ManyToMany(mappedBy = "equipe")
+    private List<Projeto> projetos;
 
     public LocalDate getDataAdmissao() {
         return dataAdmissao;
@@ -56,5 +60,13 @@ public class Funcionario extends Pessoa {
     @Override
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    public List<Projeto> getProjetos() {
+        return projetos;
+    }
+
+    public void setProjetos(List<Projeto> projetos) {
+        this.projetos = projetos;
     }
 }
