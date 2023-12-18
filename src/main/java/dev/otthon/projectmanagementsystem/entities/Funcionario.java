@@ -20,6 +20,10 @@ public class Funcionario extends Pessoa {
     @JoinColumn(name = "endereco_id_fk", nullable = false)
     private Endereco endereco;
 
+    @ManyToOne
+    @JoinColumn(name = "cargo_id_fk", nullable = false)
+    private Cargo cargo;
+
     public LocalDate getDataAdmissao() {
         return dataAdmissao;
     }
@@ -34,6 +38,14 @@ public class Funcionario extends Pessoa {
 
     public void setDataDemissao(LocalDate dataDemissao) {
         this.dataDemissao = dataDemissao;
+    }
+
+    public Cargo getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(Cargo cargo) {
+        this.cargo = cargo;
     }
 
     @Override

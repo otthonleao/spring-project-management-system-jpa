@@ -3,6 +3,7 @@ package dev.otthon.projectmanagementsystem.controller;
 import dev.otthon.projectmanagementsystem.entities.Cliente;
 import dev.otthon.projectmanagementsystem.entities.Funcionario;
 import dev.otthon.projectmanagementsystem.entities.UF;
+import dev.otthon.projectmanagementsystem.repository.CargoRepository;
 import dev.otthon.projectmanagementsystem.repository.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,9 @@ public class FuncionarioController {
     /* Faz com que o Spring faça a injeção de dependência de forma automática */
     @Autowired
     private FuncionarioRepository funcionarioRepository;
+
+    @Autowired
+    private CargoRepository cargoRepository;
 
     @GetMapping
     public ModelAndView home() {
@@ -38,6 +42,7 @@ public class FuncionarioController {
     public ModelAndView cadastrar() {
         ModelAndView modelAndView = new ModelAndView("/funcionario/formulario");
         modelAndView.addObject("funcionario", new Funcionario());
+        modelAndView.addObject("cargos", cargoRepository.findAll());
         modelAndView.addObject("ufs", UF.values());
         return modelAndView;
     }
@@ -46,6 +51,7 @@ public class FuncionarioController {
     public ModelAndView editar(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView("funcionario/formulario");
         modelAndView.addObject("funcionario", funcionarioRepository.getOne(id));
+        modelAndView.addObject("cargos", cargoRepository.findAll());
         modelAndView.addObject("ufs", UF.values());
         return modelAndView;
     }
