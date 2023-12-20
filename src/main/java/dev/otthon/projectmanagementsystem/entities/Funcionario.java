@@ -17,15 +17,15 @@ public class Funcionario extends Pessoa {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate dataDemissao;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "endereco_id_fk", nullable = false)
     private Endereco endereco;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cargo_id_fk", nullable = false)
     private Cargo cargo;
 
-    @ManyToMany(mappedBy = "equipe")
+    @ManyToMany(mappedBy = "equipe", fetch = FetchType.LAZY)
     private List<Projeto> projetos;
 
     public LocalDate getDataAdmissao() {
