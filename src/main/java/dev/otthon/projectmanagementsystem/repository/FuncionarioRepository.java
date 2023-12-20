@@ -4,6 +4,7 @@ import dev.otthon.projectmanagementsystem.entities.Cliente;
 import dev.otthon.projectmanagementsystem.entities.Funcionario;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -17,5 +18,13 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
      * */
     @EntityGraph(attributePaths = { "lider", "cargo", "" })
     List<Funcionario> findAll();
+
+    /* BUSCA TODOS OS FUNCIONÁRIOS DO CARGO QUE EU PASSAR */
+    @Query("SELECT f FROM Funcionario f WHERE f.cargo.nome = :cargoNome")
+    List<Funcionario> buscarPorCargo(String cargoNome);
+
+    /* BUSCA TODOS OS FUNCIONÁRIOS EXCETO DO CARGO QUE EU PASSAR */
+    @Query("SELECT f FROM Funcionario f WHERE f.cargo.nome <> :cargoNome")
+    List<Funcionario> buscarPorCargoExceto(String cargoNome);
 
 }
