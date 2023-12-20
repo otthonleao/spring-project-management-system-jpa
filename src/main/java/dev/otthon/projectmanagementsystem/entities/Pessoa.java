@@ -23,6 +23,12 @@ public abstract class Pessoa {
     @Column(nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate dataNascimento;
+
+    /*
+     * Quando estamos definindo um relacionamento seja ele do tipo
+     * 1-1, 1-N ou N-N podemos definir uma propriedade fetch que irá informar
+     * para a JPA como os dados do relacionamento devem ser carregados
+     * */
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "endereco_id_fk", nullable = false)
     private Endereco endereco;
