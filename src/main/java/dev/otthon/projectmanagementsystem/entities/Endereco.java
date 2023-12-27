@@ -1,13 +1,10 @@
 package dev.otthon.projectmanagementsystem.entities;
 
+import dev.otthon.projectmanagementsystem.enums.UF;
 import jakarta.persistence.*;
 
 @Entity
-public class Endereco {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Endereco extends Entidade{
 
     @Column(nullable = false, length = 2)
     @Enumerated(EnumType.STRING)
@@ -28,15 +25,8 @@ public class Endereco {
     @Column(nullable = false)
     private String numero;
 
+    @Column
     private String complemento;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public UF getUf() {
         return uf;

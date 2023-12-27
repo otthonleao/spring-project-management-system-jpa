@@ -1,6 +1,9 @@
 package dev.otthon.projectmanagementsystem.entities;
 
-import jakarta.persistence.*;
+
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 
 import java.util.List;
 

@@ -49,14 +49,6 @@ public class Funcionario extends Pessoa {
         this.dataDemissao = dataDemissao;
     }
 
-    public Cargo getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(Cargo cargo) {
-        this.cargo = cargo;
-    }
-
     @Override
     public Endereco getEndereco() {
         return endereco;
@@ -65,6 +57,14 @@ public class Funcionario extends Pessoa {
     @Override
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    public Cargo getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(Cargo cargo) {
+        this.cargo = cargo;
     }
 
     public List<Projeto> getProjetos() {

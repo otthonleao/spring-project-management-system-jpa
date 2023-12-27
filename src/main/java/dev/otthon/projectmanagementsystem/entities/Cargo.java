@@ -10,7 +10,7 @@ public class Cargo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(nullable = false, length = 40, unique = true)
+    @Column(nullable = false, length = 80, unique = true)
     private String nome;
 
     public Long getId() {

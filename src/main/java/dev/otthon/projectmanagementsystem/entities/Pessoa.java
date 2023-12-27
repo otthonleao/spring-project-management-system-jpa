@@ -4,14 +4,10 @@ import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 @MappedSuperclass
-public abstract class Pessoa {
+public abstract class Pessoa extends Entidade {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @Column(nullable = false, length = 80)
     private String nome;
     @Column(nullable = false, length = 14, unique = true)
@@ -20,7 +16,7 @@ public abstract class Pessoa {
     private String telefone;
     @Column(nullable = false, length = 80, unique = true)
     private String email;
-    @Column(nullable = false)
+    @Column(name = "data_nascimento", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate dataNascimento;
 
@@ -32,14 +28,6 @@ public abstract class Pessoa {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "endereco_id_fk", nullable = false)
     private Endereco endereco;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNome() {
         return nome;
@@ -87,18 +75,5 @@ public abstract class Pessoa {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Pessoa pessoa = (Pessoa) o;
-        return Objects.equals(id, pessoa.id) && Objects.equals(nome, pessoa.nome) && Objects.equals(cpf, pessoa.cpf) && Objects.equals(telefone, pessoa.telefone) && Objects.equals(email, pessoa.email) && Objects.equals(dataNascimento, pessoa.dataNascimento) && Objects.equals(endereco, pessoa.endereco);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, nome, cpf, telefone, email, dataNascimento, endereco);
     }
 }

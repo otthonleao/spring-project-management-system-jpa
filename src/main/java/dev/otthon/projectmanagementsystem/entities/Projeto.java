@@ -7,14 +7,9 @@ import org.springframework.format.annotation.NumberFormat;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
-public class Projeto {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Projeto extends Entidade {
 
     @Column(nullable = false)
     private String nome;
@@ -58,15 +53,6 @@ public class Projeto {
             inverseJoinColumns = @JoinColumn(name = "funcionario_id_fk")
     )
     private List<Funcionario> equipe;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNome() {
         return nome;
@@ -138,34 +124,5 @@ public class Projeto {
 
     public void setEquipe(List<Funcionario> equipe) {
         this.equipe = equipe;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Projeto projeto = (Projeto) o;
-        return Objects.equals(id, projeto.id) && Objects.equals(nome, projeto.nome) && Objects.equals(descricao, projeto.descricao) && Objects.equals(dataInicio, projeto.dataInicio) && Objects.equals(dataFim, projeto.dataFim) && Objects.equals(cliente, projeto.cliente) && Objects.equals(lider, projeto.lider) && Objects.equals(orcamento, projeto.orcamento) && Objects.equals(gastos, projeto.gastos) && Objects.equals(equipe, projeto.equipe);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, nome, descricao, dataInicio, dataFim, cliente, lider, orcamento, gastos, equipe);
-    }
-
-    @Override
-    public String toString() {
-        return "Projeto{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", descricao='" + descricao + '\'' +
-                ", dataInicio=" + dataInicio +
-                ", dataFim=" + dataFim +
-                ", cliente=" + cliente +
-                ", lider=" + lider +
-                ", orcamento=" + orcamento +
-                ", gastos=" + gastos +
-                ", equipe=" + equipe +
-                '}';
     }
 }

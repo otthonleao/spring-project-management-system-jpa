@@ -1,8 +1,7 @@
 package dev.otthon.projectmanagementsystem.controller;
 
-import dev.otthon.projectmanagementsystem.entities.Cliente;
 import dev.otthon.projectmanagementsystem.entities.Funcionario;
-import dev.otthon.projectmanagementsystem.entities.UF;
+import dev.otthon.projectmanagementsystem.enums.UF;
 import dev.otthon.projectmanagementsystem.repository.CargoRepository;
 import dev.otthon.projectmanagementsystem.repository.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,44 +26,68 @@ public class FuncionarioController {
     @GetMapping
     public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView("funcionario/home");
-        modelAndView.addObject("funcionarios", funcionarioRepository.findAll());
+        try {
+            modelAndView.addObject("funcionarios", funcionarioRepository.findAll());
+        } catch (Exception e) {
+            System.out.println("home");
+        }
         return modelAndView;
     }
 
     @GetMapping("/{id}")
     public ModelAndView detalhes(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView("funcionario/detalhes");
-        modelAndView.addObject("funcionario", funcionarioRepository.getOne(id));
+        try {
+            modelAndView.addObject("funcionario", funcionarioRepository.getOne(id));
+        } catch (Exception e) {
+            System.out.println("detalhes");
+        }
         return modelAndView;
     }
 
     @GetMapping("/cadastrar")
     public ModelAndView cadastrar() {
-        ModelAndView modelAndView = new ModelAndView("/funcionario/formulario");
-        modelAndView.addObject("funcionario", new Funcionario());
-        modelAndView.addObject("cargos", cargoRepository.findAll());
-        modelAndView.addObject("ufs", UF.values());
+        ModelAndView modelAndView = new ModelAndView("funcionario/formulario");
+        try {
+            modelAndView.addObject("funcionario", new Funcionario());
+            modelAndView.addObject("cargos", cargoRepository.findAll());
+            modelAndView.addObject("ufs", UF.values());
+        } catch (Exception e) {
+            System.out.println("cadastrar");
+        }
         return modelAndView;
     }
 
     @GetMapping("/{id}/editar")
     public ModelAndView editar(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView("funcionario/formulario");
-        modelAndView.addObject("funcionario", funcionarioRepository.getOne(id));
-        modelAndView.addObject("cargos", cargoRepository.findAll());
-        modelAndView.addObject("ufs", UF.values());
+        try {
+            modelAndView.addObject("funcionario", funcionarioRepository.getOne(id));
+            modelAndView.addObject("cargos", cargoRepository.findAll());
+            modelAndView.addObject("ufs", UF.values());
+        } catch (Exception e) {
+            System.out.println("editar > funcionario/formulario");
+        }
         return modelAndView;
     }
 
     @PostMapping({"/cadastrar", "/{id}/editar"})
     public String salvar(Funcionario funcionario) {
-        funcionarioRepository.save(funcionario);
+        try {
+            funcionarioRepository.save(funcionario);
+        } catch (Exception e) {
+            System.out.println("Cadastrar Funcionario");
+        }
         return "redirect:/funcionarios";
     }
 
     @GetMapping("/{id}/excluir")
     public String excluir(@PathVariable Long id) {
-        funcionarioRepository.deleteById(id);
+        try {
+            funcionarioRepository.deleteById(id);
+        } catch (Exception e) {
+            System.out.println("Excluir");
+        }
         return "redirect:/funcionarios";
     }
 }

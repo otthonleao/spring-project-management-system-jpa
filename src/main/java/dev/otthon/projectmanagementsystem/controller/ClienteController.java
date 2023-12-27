@@ -1,8 +1,7 @@
 package dev.otthon.projectmanagementsystem.controller;
 
-import ch.qos.logback.core.net.server.Client;
 import dev.otthon.projectmanagementsystem.entities.Cliente;
-import dev.otthon.projectmanagementsystem.entities.UF;
+import dev.otthon.projectmanagementsystem.enums.UF;
 import dev.otthon.projectmanagementsystem.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,7 +34,7 @@ public class ClienteController {
 
     @GetMapping("/cadastrar")
     public ModelAndView cadastrar() {
-        ModelAndView modelAndView = new ModelAndView("/cliente/formulario");
+        ModelAndView modelAndView = new ModelAndView("cliente/formulario");
         modelAndView.addObject("cliente", new Cliente());
         modelAndView.addObject("ufs", UF.values());
         return modelAndView;
@@ -60,6 +59,4 @@ public class ClienteController {
         clienteRepository.deleteById(id);
         return "redirect:/clientes";
     }
-
-
 }

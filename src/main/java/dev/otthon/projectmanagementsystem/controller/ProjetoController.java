@@ -1,8 +1,6 @@
 package dev.otthon.projectmanagementsystem.controller;
 
-import dev.otthon.projectmanagementsystem.entities.Funcionario;
 import dev.otthon.projectmanagementsystem.entities.Projeto;
-import dev.otthon.projectmanagementsystem.entities.UF;
 import dev.otthon.projectmanagementsystem.repository.ClienteRepository;
 import dev.otthon.projectmanagementsystem.repository.FuncionarioRepository;
 import dev.otthon.projectmanagementsystem.repository.ProjetoRepository;
@@ -30,14 +28,18 @@ public class ProjetoController {
     @GetMapping
     public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView("projeto/home");
-        modelAndView.addObject("projetos", projetoRepository.findAll());
+        try {
+            modelAndView.addObject("projetos", projetoRepository.findAll());
+        } catch (Exception e) {
+            System.out.println("Home - Projetos");
+        }
         return modelAndView;
     }
 
     @GetMapping("/{id}")
     public ModelAndView detalhes(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView("projeto/detalhes");
-        modelAndView.addObject("projetos", projetoRepository.getOne(id));
+        modelAndView.addObject("projeto", projetoRepository.getOne(id));
         return modelAndView;
     }
 
@@ -53,7 +55,7 @@ public class ProjetoController {
 
     @GetMapping("/{id}/editar")
     public ModelAndView editar(@PathVariable Long id) {
-        ModelAndView modelAndView = new ModelAndView("funcionario/formulario");
+        ModelAndView modelAndView = new ModelAndView("projeto/formulario");
         modelAndView.addObject("projeto", projetoRepository.getOne(id));
         modelAndView.addObject("clientes", clienteRepository.findAll());
         modelAndView.addObject("lideres", funcionarioRepository.buscarPorCargo("Gerente"));
