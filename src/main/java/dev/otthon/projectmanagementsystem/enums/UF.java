@@ -1,4 +1,4 @@
-package dev.otthon.projectmanagementsystem.entities;
+package dev.otthon.projectmanagementsystem.enums;
 
 public enum UF {
     AC("AC", "Acre"),
