@@ -19,6 +19,9 @@
           <!-- form start -->
           <form method="POST" th:object="${cliente}">
             <div class="card-body">
+              <!-- VALIDA COM TOKEN PARA PODER CADASTRAR COM SPRING SECURITY  -->
+              <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
               <fieldset>
                 <legend>Dados Pessoais</legend>
 
