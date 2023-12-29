@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
 
@@ -26,5 +27,8 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
     /* BUSCA TODOS OS FUNCIONÁRIOS EXCETO DO CARGO QUE EU PASSAR */
     @Query("SELECT f FROM Funcionario f WHERE f.cargo.nome <> :cargoNome")
     List<Funcionario> buscarPorCargoExceto(String cargoNome);
+
+    /* BUSCA FUNCIONARIO POR EMAIL */
+    Optional<Funcionario> findByEmail(String email);
 
 }
