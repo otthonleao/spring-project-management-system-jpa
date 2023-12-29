@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import dev.otthon.projectmanagementsystem.utils.SenhaUtils;
 
 @Controller
 @RequestMapping("/funcionarios")
@@ -48,13 +49,11 @@ public class FuncionarioController {
     @GetMapping("/cadastrar")
     public ModelAndView cadastrar() {
         ModelAndView modelAndView = new ModelAndView("funcionario/formulario");
-        try {
-            modelAndView.addObject("funcionario", new Funcionario());
-            modelAndView.addObject("cargos", cargoRepository.findAll());
-            modelAndView.addObject("ufs", UF.values());
-        } catch (Exception e) {
-            System.out.println("cadastrar");
-        }
+
+        modelAndView.addObject("funcionario", new Funcionario());
+        modelAndView.addObject("cargos", cargoRepository.findAll());
+        modelAndView.addObject("ufs", UF.values());
+
         return modelAndView;
     }
 
@@ -71,13 +70,23 @@ public class FuncionarioController {
         return modelAndView;
     }
 
-    @PostMapping({"/cadastrar", "/{id}/editar"})
-    public String salvar(Funcionario funcionario) {
-        try {
-            funcionarioRepository.save(funcionario);
-        } catch (Exception e) {
-            System.out.println("Cadastrar Funcionario");
-        }
+    @PostMapping("/cadastrar")
+    public String cadastrar(Funcionario funcionario) {
+
+        String senhaEncriptada = SenhaUtils.encode(funcionario.getSenha());
+        funcionario.setSenha(senhaEncriptada);
+        funcionarioRepository.save(funcionario);
+
+        return "redirect:/funcionarios";
+    }
+
+    @PostMapping("/{id}/editar")
+    public String editar(Funcionario funcionario, @PathVariable Long id) {
+        String senhaAtual = funcionarioRepository.getOne(id).getSenha();
+
+        funcionario.setSenha(senhaAtual);
+        funcionarioRepository.save(funcionario);
+
         return "redirect:/funcionarios";
     }
 

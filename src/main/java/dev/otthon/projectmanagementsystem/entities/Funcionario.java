@@ -33,6 +33,9 @@ public class Funcionario extends Pessoa {
     @ManyToMany(mappedBy = "equipe", fetch = FetchType.LAZY)
     private List<Projeto> projetos;
 
+    @Column(nullable = false)
+    private String senha;
+
     public LocalDate getDataAdmissao() {
         return dataAdmissao;
     }
@@ -73,5 +76,13 @@ public class Funcionario extends Pessoa {
 
     public void setProjetos(List<Projeto> projetos) {
         this.projetos = projetos;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }
